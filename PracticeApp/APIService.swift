@@ -15,9 +15,9 @@ let url = "https://reqres.in/api/"
 //}
 
 class APIService {
-    static let shared = APIService()
+//    static let shared = APIService()
     
-    func getUsers(completion: @escaping ([UserDataModel]?) -> Void) {
+    static func getUsers(completion: @escaping ([UserDataModel]?) -> Void) {
         var userDataModels: [UserDataModel] = []
         
         AF.request(url + "users").responseData { response in
