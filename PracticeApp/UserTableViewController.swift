@@ -22,8 +22,8 @@ class UserTableViewController: UIViewController {
     
     private func setupView() {
         userTableView.dataSource = self
-        
-        APIService.shared.getUsers() { userDataModels in
+
+        APIService.getUsers() { userDataModels in
             self.userDataModels = userDataModels
             self.userTableView.reloadData()
         }
