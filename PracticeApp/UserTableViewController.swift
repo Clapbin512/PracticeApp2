@@ -22,8 +22,8 @@ class UserTableViewController: UIViewController {
     
     private func setupView() {
         userTableView.dataSource = self
-        
-        APIService.shared.getUsers() { userDataModels in
+
+        APIService.getUsers() { userDataModels in
             self.userDataModels = userDataModels
             self.userTableView.reloadData()
         }
@@ -35,7 +35,7 @@ class UserTableViewController: UIViewController {
                 if let selectedIndex = self.userTableView.indexPathForSelectedRow?.row,
                    let userDataModel = self.userDataModels?[selectedIndex] {
                     detailViewController.profileImageViewURL = userDataModel.imageURL
-                    detailViewController.idString = String(userDataModel.id)
+                    detailViewController.idString = String(userDataModel.userId)
                     detailViewController.nameString = "\(userDataModel.firstName) \(userDataModel.lastName)"
                     detailViewController.emailString = userDataModel.email
                 }
