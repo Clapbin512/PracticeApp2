@@ -13,6 +13,7 @@ class UserCollectionViewController: UIViewController {
     var diffableDataSource: UICollectionViewDiffableDataSource<Section, UserDataModel>?
     
     private lazy var userCollectionView: UICollectionView = {
+        // collectionViewCompositionalLayout 세팅
         // layout item 설정
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.5))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -27,7 +28,7 @@ class UserCollectionViewController: UIViewController {
         section.orthogonalScrollingBehavior = .continuous
         let layout = UICollectionViewCompositionalLayout(section: section)
         
-        // collectionView 생성 및 layout 적용, delegate 연결
+        // collectionView 생성 및 collectionViewCompositionalLayout 적용, delegate 연결
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.delegate = self
         
@@ -78,5 +79,7 @@ class UserCollectionViewController: UIViewController {
 }
 
 extension UserCollectionViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
 }
