@@ -66,8 +66,8 @@ class UserCollectionViewCell: UICollectionViewCell {
             contentsStackView.heightAnchor.constraint(greaterThanOrEqualTo: heightAnchor, multiplier: 0.8)
         ])
         
-        contentsStackView.backgroundColor = .white
-        profileImageView.backgroundColor = .darkGray
+        self.backgroundColor = .darkGray
+        contentsStackView.backgroundColor = .lightGray
     }
     
     func setupModel(model: UserDataModel) {

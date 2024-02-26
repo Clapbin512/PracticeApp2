@@ -32,7 +32,7 @@ class APIService {
                                let firstName = user["first_name"] as? String,
                                let id = user["id"] as? Int,
                                let lastName = user["last_name"] as? String {
-                                userDataModels.append(UserDataModel(id: id, email: email, firstName: firstName, lastName: lastName, imageURL: imageURL))
+                                userDataModels.append(UserDataModel(userId: id, email: email, firstName: firstName, lastName: lastName, imageURL: imageURL))
                             }
                         }
                         completion(userDataModels)
