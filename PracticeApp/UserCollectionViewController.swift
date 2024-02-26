@@ -9,7 +9,6 @@ import UIKit
 
 class UserCollectionViewController: UIViewController {
     
-    var userDataModels: [UserDataModel]?
     var diffableDataSource: UICollectionViewDiffableDataSource<Section, UserDataModel>?
     
     private lazy var userCollectionView: UICollectionView = {
@@ -79,7 +78,15 @@ class UserCollectionViewController: UIViewController {
 }
 
 extension UserCollectionViewController: UICollectionViewDelegate {
+    // 셀 터치시 이벤트
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        if let selectedItem = diffableDataSource?.itemIdentifier(for: indexPath),
+           let detailViewController = storyboard?.instantiateViewController(identifier: "detailViewController") as? DetailViewController {
+            detailViewController.emailString = selectedItem.email
+            detailViewController.idString = "\(selectedItem.userId)"
+            detailViewController.nameString = selectedItem.firstName + " " + selectedItem.lastName
+            detailViewController.profileImageViewURL = selectedItem.imageURL
+            present(detailViewController, animated: true)
+        }
     }
 }
