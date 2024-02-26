@@ -10,13 +10,14 @@ import UIKit
 class UserCollectionViewController: UIViewController {
     
     var userDataModels: [UserDataModel]?
+    var diffableDataSource: UICollectionViewDiffableDataSource<Section, UserDataModel>?
     
     private lazy var userCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createCollectionViewLayout())
-        collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(UserCollectionViewCell.self, forCellWithReuseIdentifier: "UserCollectionViewCell")
         
+        // 3. UICollectionViewDiffableDataSource + dequeueReusableCell 방식
+//        collectionView.register(UserCollectionViewCell.self, forCellWithReuseIdentifier: "UserCollectionViewCell")
         return collectionView
     }()
 
@@ -49,27 +50,54 @@ class UserCollectionViewController: UIViewController {
         userCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         userCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
+        // 3. UICollectionViewDiffableDataSource + dequeueReusableCell 방식
+//        diffableDataSource = UICollectionViewDiffableDataSource<Section, UserDataModel>(collectionView: userCollectionView) { collectionView, indexPath, itemIdentifier in
+//            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserCollectionViewCell", for: indexPath) as? UserCollectionViewCell else { return UICollectionViewCell() }
+//            cell.setupModel(model: itemIdentifier)
+//            return cell
+//        }
+//
+        // 2. UICollectionViewDiffableDataSource + UICollectionView.CellRegistration 방식
+        // cell register
+        let cellRegistration = UICollectionView.CellRegistration<UserCollectionViewCell, UserDataModel> {
+            (cell, indexPath, userDataModel) in
+            cell.setupModel(model: userDataModel)
+        }
+
+        diffableDataSource = UICollectionViewDiffableDataSource<Section, UserDataModel>(collectionView: self.userCollectionView) {
+            (collectionView: UICollectionView, indexPath: IndexPath, identifier: UserDataModel) -> UICollectionViewCell? in
+            return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: identifier)
+        }
+        
+        userCollectionView.dataSource = diffableDataSource
+        
         APIService.getUsers { userDataModels in
-            self.userDataModels = userDataModels
-            self.userCollectionView.reloadData()
+            // 1. UICollectionViewDataSource 방식
+//            self.userDataModels = userDataModels
+//            self.userCollectionView.reloadData()
+            
+            // 2-1. UICollectionViewDiffableDataSource + UICollectionView.CellRegistration 방식 - 최로 로딩 후 사라지는 현상 발생..
+//            // cell register
+//            let cellRegistration = UICollectionView.CellRegistration<UserCollectionViewCell, UserDataModel> {
+//                (cell, indexPath, userDataModel) in
+//                cell.setupModel(model: userDataModel)
+//            }
+
+//            let dataSource = UICollectionViewDiffableDataSource<Section, UserDataModel>(collectionView: self.userCollectionView) {
+//                (collectionView: UICollectionView, indexPath: IndexPath, identifier: UserDataModel) -> UICollectionViewCell? in
+//                return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: identifier)
+//            }
+//            self.userCollectionView.dataSource = dataSource
+
+            var snapshot = NSDiffableDataSourceSnapshot<Section, UserDataModel>()
+            snapshot.appendSections([.user])
+            guard let items = userDataModels else { return }
+            snapshot.appendItems(items, toSection: .user)
+            self.diffableDataSource?.apply(snapshot)
+            // 2-1. UICollectionViewDiffableDataSource + UICollectionView.CellRegistration 방식 - 최로 로딩 후 사라지는 현상 발생..
+//            dataSource.apply(snapshot)
         }
     }
-}
-
-extension UserCollectionViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.userDataModels?.count ?? 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserCollectionViewCell", for: indexPath) as? UserCollectionViewCell, let userDataModels = userDataModels else { return UICollectionViewCell(frame: .zero) }
-        
-        cell.setupModel(model: userDataModels[indexPath.item])
-        cell.backgroundColor = .gray
-        return cell
-    }
-    
-    
 }
 
 extension UserCollectionViewController: UICollectionViewDelegate {
