@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		041E47502B8D7F060077AFED /* UserCollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041E474F2B8D7F060077AFED /* UserCollectionHeaderView.swift */; };
 		04C5F2A22B7EE21300EB88B3 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C5F2A12B7EE21300EB88B3 /* DetailViewController.swift */; };
 		04C6F52B2B7C568E0009D51D /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C6F52A2B7C568E0009D51D /* APIService.swift */; };
 		04E349D52B7AF9B1005818C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E349D42B7AF9B1005818C9 /* AppDelegate.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		041E474F2B8D7F060077AFED /* UserCollectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCollectionHeaderView.swift; sourceTree = "<group>"; };
 		04C5F2A12B7EE21300EB88B3 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		04C6F52A2B7C568E0009D51D /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		04E349D12B7AF9B1005818C9 /* PracticeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PracticeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,6 +140,7 @@
 				04E34A092B7B5C37005818C9 /* UserTableViewCell.swift */,
 				04C5F2A12B7EE21300EB88B3 /* DetailViewController.swift */,
 				04E34A072B7B5BAD005818C9 /* UserCollectionViewController.swift */,
+				041E474F2B8D7F060077AFED /* UserCollectionHeaderView.swift */,
 				04E34A0B2B7B5C4B005818C9 /* UserCollectionViewCell.swift */,
 				04E349DA2B7AF9B1005818C9 /* Main.storyboard */,
 				04E349E02B7AF9B2005818C9 /* Assets.xcassets */,
@@ -432,6 +435,7 @@
 				04E349DF2B7AF9B1005818C9 /* PracticeApp.xcdatamodeld in Sources */,
 				04E34A102B7B630A005818C9 /* UserTableViewController.swift in Sources */,
 				04E349D52B7AF9B1005818C9 /* AppDelegate.swift in Sources */,
+				041E47502B8D7F060077AFED /* UserCollectionHeaderView.swift in Sources */,
 				04E34A0C2B7B5C4B005818C9 /* UserCollectionViewCell.swift in Sources */,
 				04E34A0A2B7B5C37005818C9 /* UserTableViewCell.swift in Sources */,
 				04E349D72B7AF9B1005818C9 /* SceneDelegate.swift in Sources */,
